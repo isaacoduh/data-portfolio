@@ -1,0 +1,41 @@
+version: "3.1"
+
+services:
+  amdari_mysqldb:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: amdaripassword
+      MYSQL_DATABASE: amdaridb
+      MYSQL_USER: amdariuser
+      MYSQL_PASSWORD: amdariuserpassword
+    volumes:
+      - mysqldb-volume:/var/lib/mysql
+    ports:
+      - 3307:3306
+  amdari_postgresqldb:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: amdaripassword
+      POSTGRES_USER: amdariuser
+      POSTGRES_DB: amdaridb
+    volumes:
+      - postgresdb-volume:/var/lib/postgresql/data
+    ports:
+      - 5435:5432
+  amdarisqlserverdb:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    restart: always
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "amdaripassword01"
+    ports:
+      - 1435:1433
+    volumes:
+      - sqlserverdb-volume:/var/opt/mssql
+
+volumes:
+  mysqldb-volume: {}
+  postgresdb-volume: {}
+  sqlserverdb-volume: {}
