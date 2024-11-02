@@ -1,0 +1,39 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: books_db
+    ports:
+      - "5435:5432"
+    volumes:
+      - "./data/postgres:/var/lib/postgresql/data"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+
+  airflow:
+    image: apache/airflow:2.4.2
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+      AIRFLOW__CORE__FERNET_KEY: xvwvefaQxgWcKlfaQXVaWFaKgwefoasfweKAFa==
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+    command: ["airflow", "standalone"]
+
+volumes:
+  data:

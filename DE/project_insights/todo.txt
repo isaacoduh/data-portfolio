@@ -1,0 +1,10 @@
+Summary: 
+[] Import Libraries
+[] Initialize Glue Job
+[] Define S3 Paths for Outputs and Inputs
+[] Read Data from S3
+[] Apply Mapping
+[] Convert to Dataframe for Cleaning
+[] Data Cleaning: Remove Null Rows, Trim Whitespaces, Convert and Filter Date, Adjust Negative Values
+[] Convert to Dynamic Frame
+[] Save in Different Format
