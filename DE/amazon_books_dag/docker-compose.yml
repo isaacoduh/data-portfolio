@@ -23,7 +23,7 @@ services:
     image: apache/airflow:2.4.2
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5435/books_db
       AIRFLOW__CORE__FERNET_KEY: xvwvefaQxgWcKlfaQXVaWFaKgwefoasfweKAFa==
     depends_on:
       - postgres
